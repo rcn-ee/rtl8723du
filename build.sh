@@ -7,8 +7,8 @@ if [ -f .builddir ] ; then
 		rm -rf ./src || true
 	fi
 
-	echo "git clone https://github.com/lwfinger/rtl8723du.git ./src --depth=1"
-	git clone https://github.com/lwfinger/rtl8723du.git ./src --depth=1
+	echo "git clone -b v5.13.4 https://github.com/lwfinger/rtl8723du.git ./src --depth=1"
+	git clone -b v5.13.4 https://github.com/lwfinger/rtl8723du.git ./src --depth=1
 
 	if [ "x${ARCH}" = "xx86_64" ] ; then
 		x86_dir="`pwd`/../../normal"
@@ -21,6 +21,8 @@ if [ -f .builddir ] ; then
 	fi
 
 	cd ./src
+	cp -v ../../Makefile ./
+	git diff
 	make ARCH=arm ${make_options} clean
 	echo "make ARCH=arm ${make_options}"
 	make ARCH=arm ${make_options} all
